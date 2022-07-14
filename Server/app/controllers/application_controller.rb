@@ -9,7 +9,7 @@ class ApplicationController < Sinatra::Base
     events.to_json
   end
 
-  delete "/events" do
+  delete "/events/:id" do
   events = Event.find(params[:id])
   events.destroy
   events.to_json
