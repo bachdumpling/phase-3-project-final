@@ -29,15 +29,15 @@ function App() {
   const [buttonPopup, setButtonPopup] = useState(false)
   const [clickEvent, setClickEvent] = useState({})
   const [clickEventArr, setClickEventArr] = useState([])
-
+  
+  let events = []
+  
   useEffect(() => {
     getData()
   }, [])
 
-  let events = []
-
   function getData() {
-    fetch("http://localhost:4000/events")
+    fetch(`http://localhost:9292/events`)
       .then(response => response.json())
       .then(data => {
         events = data.map((item) => {
@@ -58,7 +58,7 @@ function App() {
   }
 
   function handleAddEvent() {
-    fetch(`http://localhost:4000/events`, {
+    fetch(`http://localhost:9292/events`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -69,12 +69,14 @@ function App() {
         end: newEvent.end
       })
     }).then(response => response.json())
-      .then((newEvent) => setAllEvents([...allEvents, newEvent]))
+      .then((newEvent) => setNewEvent([...allEvents, newEvent]))
+      .then(getData())
   }
 
 
   function removeEventHandler(e) {
-    fetch(`http://localhost:4000/events/${e.id}`, {
+    console.log(e)
+    fetch(`http://localhost:9292/events/${e.id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json"
@@ -131,7 +133,7 @@ function App() {
         clickEvent={clickEvent}
         allEvents={allEvents}
         clickEventArr={clickEventArr}
-        getData ={getData}>
+        getData={getData}>
       </Popup>
 
     </div>

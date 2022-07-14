@@ -8,7 +8,7 @@ function PopupContent({ eventDetail, getData }) {
 
     function handleEditEvent(e) {
         console.log(e)
-        fetch(`http://localhost:4000/events/${e.id}`, {
+        fetch(`http://localhost:9292/events/${e.id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
@@ -19,7 +19,8 @@ function PopupContent({ eventDetail, getData }) {
                 end: editEvent.end
             })
         }).then(response => response.json())
-            .then(setEditEvent)
+            .then(setEditEvent(editEvent))
+            .then(getData())
     }
 
     return (
@@ -29,13 +30,13 @@ function PopupContent({ eventDetail, getData }) {
                 <h4> Title:  <input type="text"
                     defaultValue={eventDetail.title}
                     placeholder="Edit Title"
-                    value={editEvent.title} 
                     onChange={(e) => setEditEvent({ ...editEvent, title: e.target.value })} />
                 </h4>
 
                 <h4>Starts: {eventDetail.start.toString()}
                     <DatePicker id='start-input' placeholderText='Start Date'
                         selected={editEvent.start} onChange={(start) => setEditEvent({ ...editEvent, start })}
+                        defaultValue={eventDetail.start}
                         showTimeSelect
                         timeFormat="HH:mm"
                         timeIntervals={15}
@@ -43,6 +44,7 @@ function PopupContent({ eventDetail, getData }) {
                         dateFormat="MMMM d, yyyy h:mm aa" /></h4>
                 <h4>Ends: {eventDetail.end.toString()}
                     <DatePicker placeholderText='End Date' selected={editEvent.end} onChange={(end) => setEditEvent({ ...editEvent, end })}
+                        defaultValue={eventDetail.end}
                         showTimeSelect
                         timeFormat="HH:mm"
                         timeIntervals={15}
