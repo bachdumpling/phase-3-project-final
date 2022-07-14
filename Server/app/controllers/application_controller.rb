@@ -9,8 +9,27 @@ class ApplicationController < Sinatra::Base
     events.to_json
   end
 
-  patch "messages"
-  messages = Message.find(params[:id])
-  messages.destroy
-  messages.to_json
+  delete "/events" do
+  events = Event.find(params[:id])
+  events.destroy
+  events.to_json
+  end 
+  
+  patch "/events/:id" do
+  events = Event.find(params[:id])
+  events.update(
+    title: params[:title],
+    start: params[:start],
+    end: params[:end])
+    events.to_json
+  end 
+
+  post "/events" do
+    events = Event.create(
+      title: params[:title],
+      start: params[:start],
+      end: params[:end])
+    events.to_json
+  end
+
 end
