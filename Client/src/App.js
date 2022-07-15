@@ -9,6 +9,7 @@ import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import Popup from './Component/Popup1';
+import "./calendar.png"
 
 
 const locales = {
@@ -71,7 +72,7 @@ function App() {
       })
     }).then(response => response.json())
       .then((newEvent) => setNewEvent([...allEvents, newEvent]))
-      .then(getData())
+      .then(() => {getData()})
   }
 
 
@@ -101,10 +102,10 @@ function App() {
       <h1>Calendar</h1>
       <h2>Add New Event</h2>
       <div>
-        <input id='event-input' type="text" placeholder="Add Title" style={{ width: "20%", marginRight: "10px" }}
+        <input className="input" id='event-input' type="text" placeholder="Add Title" style={{ width: "20%", marginRight: "10px" }}
           value={newEvent.title} onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })} />
 
-        <DatePicker id='start-input' placeholderText='Start Date'
+        <DatePicker className="input" id='start-input' placeholderText='Start Date'
           selected={newEvent.start} onChange={(start) => setNewEvent({ ...newEvent, start })}
           showTimeSelect
           timeFormat="HH:mm"
@@ -112,7 +113,7 @@ function App() {
           timeCaption="time"
           dateFormat="MMMM d, yyyy h:mm aa" />
 
-        <DatePicker placeholderText='End Date' selected={newEvent.end} onChange={(end) => setNewEvent({ ...newEvent, end })}
+        <DatePicker className="input" placeholderText='End Date' selected={newEvent.end} onChange={(end) => setNewEvent({ ...newEvent, end })}
           showTimeSelect
           timeFormat="HH:mm"
           timeIntervals={15}

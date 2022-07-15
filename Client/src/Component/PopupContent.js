@@ -29,14 +29,19 @@ function PopupContent({ eventDetail, getData }) {
         <div>
             <h3>{eventDetail.title}</h3>
             <div>
-                <h4> Title:  <input type="text"
+                <h4> Title: <br/> <input
+                    id='edit-title-box'
+                    className="input"
+                    type="text"
                     defaultValue={eventDetail.title}
                     placeholder="Edit Title"
                     onChange={(e) => setEditEvent({ ...editEvent, title: e.target.value })} />
                 </h4>
 
                 <h4>Starts: {eventDetail.start.toString()}
-                    <DatePicker id='start-input' placeholderText='Start Date'
+                    <DatePicker
+                        className="input"
+                        id='start-input' placeholderText='Start Date'
                         selected={editEvent.start} onChange={(start) => setEditEvent({ ...editEvent, start })}
                         defaultValue={eventDetail.start}
                         showTimeSelect
@@ -45,7 +50,9 @@ function PopupContent({ eventDetail, getData }) {
                         timeCaption="time"
                         dateFormat="MMMM d, yyyy h:mm aa" /></h4>
                 <h4>Ends: {eventDetail.end.toString()}
-                    <DatePicker placeholderText='End Date' selected={editEvent.end} onChange={(end) => setEditEvent({ ...editEvent, end })}
+                    <DatePicker
+                        className="input"
+                        placeholderText='End Date' selected={editEvent.end} onChange={(end) => setEditEvent({ ...editEvent, end })}
                         defaultValue={eventDetail.end}
                         showTimeSelect
                         timeFormat="HH:mm"
@@ -53,7 +60,7 @@ function PopupContent({ eventDetail, getData }) {
                         timeCaption="time"
                         dateFormat="MMMM d, yyyy h:mm aa" /></h4>
 
-                <button onClick={() => handleEditEvent(eventDetail)}>Edit Event</button>
+                <button className='btn' id='edit-btn-id' onClick={() => handleEditEvent(eventDetail)}>✏️</button>
             </div>
             <br />
         </div>
