@@ -19,8 +19,10 @@ function PopupContent({ eventDetail, getData }) {
                 end: editEvent.end
             })
         }).then(response => response.json())
-            .then(setEditEvent(editEvent))
-            .then(getData())
+            .then(e => {
+                setEditEvent(editEvent)
+                getData()
+            })
     }
 
     return (

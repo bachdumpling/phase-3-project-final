@@ -29,9 +29,9 @@ function App() {
   const [buttonPopup, setButtonPopup] = useState(false)
   const [clickEvent, setClickEvent] = useState({})
   const [clickEventArr, setClickEventArr] = useState([])
-  
+
   let events = []
-  
+
   useEffect(() => {
     getData()
   }, [])
@@ -40,6 +40,7 @@ function App() {
     fetch(`http://localhost:9292/events`)
       .then(response => response.json())
       .then(data => {
+        console.log(data)
         events = data.map((item) => {
           const id = item.id
           const title = item.title
@@ -81,9 +82,11 @@ function App() {
       headers: {
         "Content-Type": "application/json"
       }
+    }).then(r => r.json()).then(e => {
+      console.log(e)
+      getData()
+      setButtonPopup(!buttonPopup)
     })
-    getData()
-    setButtonPopup(!buttonPopup)
   }
 
   function handlePopup(e) {
